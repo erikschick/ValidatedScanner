@@ -16,24 +16,56 @@ public class ValidatedScanner {
 	// The scanner to be used for input
 	private Scanner sn;
 	
-	private String errorMessage = "Input error";
+	// The error message to print
+	private String errorMessage = "Input error\n";
 	
+	
+	/**
+	 * Initialize a ValidatedScanner to wrap a Scanner
+	 * @param sn the Scanner to wrap
+	 */
 	public ValidatedScanner(Scanner sn) {
 		this.sn = sn;
 	}
 	
+	
+	/**
+	 * Set this ValidatedScanner to wrap a new Scanner
+	 * @param sn the Scanner to wrap
+	 */
 	public void setScanner(Scanner sn) {
 		this.sn = sn;
 	}
 	
+	
+	/**
+	 * Closes this Scanner
+	 */
 	public void close() {
 		sn.close();
 	}
 	
+	
+	/**
+	 * Sets a new error message
+	 * @param s the message to print on input errors
+	 */
 	public void setError(String s) {
 		errorMessage = s;
 	}
 	
+	
+	/**
+	 * Disables the printing of error messages
+	 */
+	public void suppressErrors() {
+		setError("");
+	}
+	
+	
+	/**
+	 * Sets a function to call upon input error
+	 */
 	public void setError() {
 		//TODO allow a lambda expression to override printing errorMessage
 	}
@@ -53,14 +85,14 @@ public class ValidatedScanner {
 					return input;
 				}
 			}
-			System.out.println(errorMessage);
+			System.out.print(errorMessage);
 		}
 	}
 	
 	public int nextInt(int min, int max) {
 		int input = sn.nextInt();
 		while(input < min || input > max) {
-			System.out.println(errorMessage);
+			System.out.print(errorMessage);
 			input = sn.nextInt();
 		}
 		return input;
@@ -69,8 +101,8 @@ public class ValidatedScanner {
 	public double nextDouble(double min, double max) {
 		double input = sn.nextDouble();
 		while(input < min || input > max) {
-			System.out.println(errorMessage);
-			input = sn.nextInt();
+			System.out.print(errorMessage);
+			input = sn.nextDouble();
 		}
 		return input;
 	}
@@ -78,8 +110,8 @@ public class ValidatedScanner {
 	public float nextFloat(float min, float max) {
 		float input = sn.nextFloat();
 		while(input < min || input > max) {
-			System.out.println(errorMessage);
-			input = sn.nextInt();
+			System.out.print(errorMessage);
+			input = sn.nextFloat();
 		}
 		return input;
 	}
