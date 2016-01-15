@@ -39,8 +39,12 @@ public class ValidatedScanner {
 	}
 	
 	public String nextValidLine(String... choices) {
-		//TODO use a bucket method for quicker validation
-		//		with large amount of choices
+		/* TODO use a bucket method for quicker validation
+		 * with large amount of choices. Allow user to manually
+		 * preload and set a "set of buckets" for multiple calls
+		 * with the same restrictions
+		 */
+				
 		String input = "";
 		while(true) {
 			input = sn.nextLine();
