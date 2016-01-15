@@ -19,6 +19,7 @@ public class ValidatedScanner {
 	// The error message to print
 	private String errorMessage = "Input error\n";
 	
+	private ErrorHandler errorHandler;
 	
 	/**
 	 * Initialize a ValidatedScanner to wrap a Scanner
@@ -26,6 +27,12 @@ public class ValidatedScanner {
 	 */
 	public ValidatedScanner(Scanner sn) {
 		this.sn = sn;
+		errorHandler = new ErrorHandler() {
+			@Override
+			public void handle() {
+				System.out.print(errorMessage);
+			}
+		};
 	}
 	
 	
@@ -43,6 +50,11 @@ public class ValidatedScanner {
 	 */
 	public void close() {
 		sn.close();
+	}
+	
+	
+	private void onError() {
+		errorHandler.handle();
 	}
 	
 	
@@ -78,14 +90,14 @@ public class ValidatedScanner {
 					return input;
 				}
 			}
-			System.out.print(errorMessage);
+			onError();
 		}
 	}
 	
 	public int nextInt(int min, int max) {
 		int input = sn.nextInt();
 		while(input < min || input > max) {
-			System.out.print(errorMessage);
+			onError();
 			input = sn.nextInt();
 		}
 		return input;
@@ -94,7 +106,7 @@ public class ValidatedScanner {
 	public double nextDouble(double min, double max) {
 		double input = sn.nextDouble();
 		while(input < min || input > max) {
-			System.out.print(errorMessage);
+			onError();
 			input = sn.nextDouble();
 		}
 		return input;
@@ -103,7 +115,7 @@ public class ValidatedScanner {
 	public float nextFloat(float min, float max) {
 		float input = sn.nextFloat();
 		while(input < min || input > max) {
-			System.out.print(errorMessage);
+			onError();
 			input = sn.nextFloat();
 		}
 		return input;

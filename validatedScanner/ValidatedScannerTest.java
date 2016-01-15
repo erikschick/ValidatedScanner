@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Erik Schick
  *
  */
-class validatedScannerTest {
+class ValidatedScannerTest {
 	
 	private static void myAssert(boolean condition) throws Exception {
 		if(condition == false) {
@@ -36,6 +36,8 @@ class validatedScannerTest {
 		sn = new Scanner("1.34\n0.62\n-9.6532");
 		vsn.setScanner(sn);
 		myAssert(-9.6532f == vsn.nextFloat(-10.0f, 0.0f));
+		
+		
 		
 		System.out.println("Passed all tests");
 	}
