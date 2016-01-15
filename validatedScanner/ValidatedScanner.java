@@ -16,9 +16,6 @@ public class ValidatedScanner {
 	// The scanner to be used for input
 	private Scanner sn;
 	
-	// The error message to print
-	private String errorMessage = "Input error\n";
-	
 	private ErrorHandler errorHandler;
 	
 	/**
@@ -30,7 +27,7 @@ public class ValidatedScanner {
 		errorHandler = new ErrorHandler() {
 			@Override
 			public void handle() {
-				System.out.print(errorMessage);
+				System.out.print("Input error\n");
 			}
 		};
 	}
@@ -59,11 +56,25 @@ public class ValidatedScanner {
 	
 	
 	/**
+	 * Allows the passing in of an ErrorHandler with custom code
+	 * @param e an ErrorHandler
+	 */
+	public void setErrorHandler(ErrorHandler e) {
+		errorHandler = e;
+	}
+	
+	
+	/**
 	 * Sets a new error message
 	 * @param s the message to print on input errors
 	 */
-	public void setError(String s) {
-		errorMessage = s;
+	public void setErrorMessage(String message) {
+		errorHandler = new ErrorHandler() {
+			@Override
+			public void handle() {
+				System.out.print(message);
+			}
+		};
 	}
 	
 	
@@ -71,7 +82,7 @@ public class ValidatedScanner {
 	 * Disables the printing of error messages
 	 */
 	public void suppressErrors() {
-		setError("");
+		setErrorMessage("");
 	}
 	
 	

@@ -1,5 +1,21 @@
 package validatedScanner;
 
+
+/**
+ * Use this class similarly to an ActionListener
+ * 
+ * ErrorHandler e = new ErrorHandler() {
+ * 		@Override
+ * 		public void handle() {
+ * 			INSERT CODE HERE
+ * 		}
+ * };
+ * 
+ * 
+ * 
+ * @author Erik
+ *
+ */
 public abstract class ErrorHandler {
 	
 	/**

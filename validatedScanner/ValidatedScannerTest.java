@@ -1,6 +1,5 @@
 package validatedScanner;
 
-import java.lang.reflect.Method;
 import java.util.Scanner;
 
 /**
@@ -11,6 +10,7 @@ import java.util.Scanner;
  *
  */
 class ValidatedScannerTest {
+	static int errorCount = 0;
 	
 	private static void myAssert(boolean condition) throws Exception {
 		if(condition == false) {
@@ -19,24 +19,34 @@ class ValidatedScannerTest {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		Scanner sn = new Scanner("Fail\nPass\n");
-		ValidatedScanner vsn = new ValidatedScanner(sn);
+		ValidatedScanner vsn = new ValidatedScanner(new Scanner("Fail\nPass\n"));
 		vsn.suppressErrors();
-		
 		myAssert("Pass".equals(vsn.nextValidLine("Pass")));
 		
-		sn = new Scanner("7\n8\n100\n1000\n100001\n1002");
-		vsn.setScanner(sn);
+		vsn.setScanner(new Scanner("7\n8\n100\n1000\n100001\n1002"));
 		myAssert(1002 == vsn.nextInt(1001, 2000));
 		
-		sn = new Scanner("1.34\n0.62\n-9.6532");
-		vsn.setScanner(sn);
+		vsn.setScanner(new Scanner("1.34\n0.62\n-9.6532"));
 		myAssert(-9.6532 == vsn.nextDouble(-10.0, 0.0));
 		
-		sn = new Scanner("1.34\n0.62\n-9.6532");
-		vsn.setScanner(sn);
+		vsn.setScanner(new Scanner("1.34\n0.62\n-9.6532"));
 		myAssert(-9.6532f == vsn.nextFloat(-10.0f, 0.0f));
 		
+		
+		// Testing ErrorHandler
+		vsn.setErrorHandler(new ErrorHandler() {
+			@Override
+			public void handle() {
+				errorCount++;
+			}
+		});
+		vsn.setScanner(new Scanner("7\n8\n100\n1000\n100001\n1001"));
+		myAssert(1001 == vsn.nextInt(1001, 2000));
+		myAssert(errorCount == 5);
+		vsn.suppressErrors();
+		vsn.setScanner(new Scanner("7\n8\n100\n1000\n100001\n1001"));
+		myAssert(1001 == vsn.nextInt(1001, 2000));
+		myAssert(errorCount == 5);
 		
 		
 		System.out.println("Passed all tests");
