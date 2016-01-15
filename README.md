@@ -14,7 +14,8 @@ An ErrorHandler can be passed to the ValidatedScanner in the same way that an Ac
 
 <br />Example:
 ```
-vsn.setErrorHandler(new ErrorHandler() {
+ValidatedScanner vs = new ValidatedScanner(someScanner);
+vs.setErrorHandler(new ErrorHandler() {
     @Override
     public void handle() {
         errorCount++;
