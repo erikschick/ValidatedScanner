@@ -89,7 +89,7 @@ public class ValidatedScanner {
 	public String nextValidLine(String... choices) {
 		/* TODO use a bucket method for quicker validation
 		 * with large amount of choices. Allow user to manually
-		 * preload and set a "set of buckets" for multiple calls
+		 * preload a "set of buckets" for multiple calls
 		 * with the same restrictions
 		 */
 				

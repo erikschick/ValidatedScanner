@@ -12,8 +12,7 @@ package validatedScanner;
  * };
  * 
  * 
- * 
- * @author Erik
+ * @author Erik Schick
  *
  */
 public abstract class ErrorHandler {
