@@ -12,11 +12,13 @@ New error messages can be set to a String. Newlines are not automatically append
 ###setErrorHandler()
 An ErrorHandler can be passed to the ValidatedScanner in the same way that an ActionListener can be passed to a Swing component.
 
-Example:
+<br />Example:
+```
 vsn.setErrorHandler(new ErrorHandler() {
-		@Override
-		public void handle() {
-			errorCount++;
-			System.out.println("Invalid input");
-	}
+    @Override
+    public void handle() {
+        errorCount++;
+        System.out.println("Invalid input");
+    }
 });
+```
