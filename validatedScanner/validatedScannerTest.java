@@ -1,5 +1,6 @@
 package validatedScanner;
 
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,7 @@ class validatedScannerTest {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {		
+	public static void main(String[] args) throws Exception {
 		Scanner sn = new Scanner("Fail\nPass\n");
 		ValidatedScanner vsn = new ValidatedScanner(sn);
 		vsn.suppressErrors();

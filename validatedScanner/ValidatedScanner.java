@@ -63,13 +63,6 @@ public class ValidatedScanner {
 	}
 	
 	
-	/**
-	 * Sets a function to call upon input error
-	 */
-	public void setError() {
-		//TODO allow a lambda expression to override printing errorMessage
-	}
-	
 	public String nextValidLine(String... choices) {
 		/* TODO use a bucket method for quicker validation
 		 * with large amount of choices. Allow user to manually
