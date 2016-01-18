@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 /**
  * A very basic series of tests for ValidatedScanner
+ * Testing is definitely not thorough.
  * Trivial behaviour will not/barely be tested
  * 
  * @author Erik Schick
  *
  */
 class ValidatedScannerTest {
-	final static int TEST_LOOPS = 10000;
+	final static int TEST_LOOPS = 100;
 	static int errorCount = 0;
 	
 	private static void myAssert(boolean condition) throws Exception {
@@ -126,8 +127,42 @@ class ValidatedScannerTest {
 		
 		
 		
+		// Testing custom Validators
 		
-		System.out.println("Passed all tests");
+		NumberValidator evenWholeNumber = new NumberValidator() {
+			@Override
+			public boolean valid(double input) {
+				return (input % 2 == 0);
+			}
+		};
+		vsn.setScanner(new Scanner("1\n3\n5\n4\n"));
+		myAssert(vsn.nextInt(evenWholeNumber) == 4);
+		
+		vsn.setScanner(new Scanner("1.0\n3.2\n5.0\n4.1\n4.0"));
+		myAssert(vsn.nextFloat(evenWholeNumber) == 4.0);
+		
+		vsn.setScanner(new Scanner("1.0\n3.2\n5.0\n4.1\n4.0"));
+		myAssert(vsn.nextDouble(evenWholeNumber) == 4.0);
+		
+		
+		StringValidator containsVowel = new StringValidator() {
+			@Override
+			public boolean valid(String input) {
+				for(char c : input.toLowerCase().toCharArray()) {
+					if(c == 'a' | c == 'e' | c == 'i'
+							| c == 'o' | c == 'u') {
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+		
+		vsn.setScanner(new Scanner("svn\ncdn\nPDF\nCAD"));
+		myAssert(vsn.nextValidLine(containsVowel).equals("CAD"));
+		
+		
+		System.out.println("\nPassed all tests");
 	}
 
 }

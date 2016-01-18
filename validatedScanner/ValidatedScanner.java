@@ -1,4 +1,3 @@
-// TODO add support for custom Validator objects to be passed in to all methods
 package validatedScanner;
 
 import java.util.Scanner;
@@ -16,9 +15,9 @@ import java.util.Scanner;
 public class ValidatedScanner {
 	// The scanner to be used for input
 	private Scanner sn;
-	
-	// The current ErrorHandler set
-	private ErrorHandler errorHandler;
+
+	// The current set ErrorHandler
+	private ErrorHandler errorHandler = ErrorHandler.DEFAULT_ERROR;
 	
 	
 	/**
@@ -27,7 +26,6 @@ public class ValidatedScanner {
 	 */
 	public ValidatedScanner(Scanner sn) {
 		this.sn = sn;
-		errorHandler = ErrorHandler.DEFAULT_ERROR;
 	}
 	
 	
@@ -92,8 +90,7 @@ public class ValidatedScanner {
 	 */
 	public String nextValidLine(String... choices) {
 		ValidStrings vs = new ValidStrings(choices);
-		String input;
-		input = sn.nextLine();
+		String input = sn.nextLine();
 		while(!vs.contains(input)) {
 			onError();
 			input = sn.nextLine();
@@ -109,9 +106,24 @@ public class ValidatedScanner {
 	 * @return The valid String input
 	 */
 	public String nextValidLine(ValidStrings choices) {
-		String input;
-		input = sn.nextLine();
+		String input = sn.nextLine();
 		while(!choices.contains(input)) {
+			onError();
+			input = sn.nextLine();
+		}
+		
+		return input;
+	}
+	
+	
+	/**
+	 * Gets the next String that passes the Validator
+	 * @param validator The Validator to use
+	 * @return The valid String input
+	 */
+	public String nextValidLine(StringValidator validator) {
+		String input = sn.nextLine();
+		while(!validator.valid(input)) {
 			onError();
 			input = sn.nextLine();
 		}
@@ -150,6 +162,21 @@ public class ValidatedScanner {
 		return input;
 	}
 	
+	/**
+	 * Gets the next int that passes the Validator
+	 * @param validator The Validator to use
+	 * @return The valid int input
+	 */
+	public int nextInt(NumberValidator validator) {
+		int input = sn.nextInt();
+		while(!validator.valid(input)) {
+			onError();
+			input = sn.nextInt();
+		}
+		
+		return input;
+	}
+	
 	
 	/**
 	 * Gets the next double that is in range
@@ -163,6 +190,22 @@ public class ValidatedScanner {
 			onError();
 			input = sn.nextDouble();
 		}
+		return input;
+	}
+	
+	
+	/**
+	 * Gets the next double that passes the Validator
+	 * @param validator The Validator to use
+	 * @return The valid double input
+	 */
+	public double nextDouble(NumberValidator validator) {
+		double input = sn.nextDouble();
+		while(!validator.valid(input)) {
+			onError();
+			input = sn.nextDouble();
+		}
+		
 		return input;
 	}
 	
@@ -183,8 +226,26 @@ public class ValidatedScanner {
 	}
 	
 	
-	/** 
-	 *
+	/**
+	 * Gets the next float that passes the Validator
+	 * @param validator The Validator to use
+	 * @return The valid float input
+	 */
+	public float nextFloat(NumberValidator validator) {
+		float input = sn.nextFloat();
+		while(!validator.valid(input)) {
+			onError();
+			input = sn.nextFloat();
+		}
+		
+		return input;
+	}
+	
+	
+	
+	
+	/** ----------------------------------------------- 
+	 * ------------------------------------------------
 	 * Scanner call passing methods
 	 * See Scanner documentation for any info
 	 * 
