@@ -3,6 +3,8 @@ A wrapper for Java Scanner to support automatic validation of input.
 
 The user will be repeatedly asked for input until valid input is given.
 
+Anyone is free to use ValidatedScanner in their own projects provided that credit is given.
+
 ##Custom Validators
 If specific validation conditions are desired, a custom validator can be passed in.<br><br>
 Example:
