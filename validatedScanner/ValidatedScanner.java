@@ -16,6 +16,7 @@ public class ValidatedScanner {
 	// The scanner to be used for input
 	private Scanner sn;
 	
+	// The current ErrorHandler set
 	private ErrorHandler errorHandler;
 	
 	/**
@@ -24,12 +25,7 @@ public class ValidatedScanner {
 	 */
 	public ValidatedScanner(Scanner sn) {
 		this.sn = sn;
-		errorHandler = new ErrorHandler() {
-			@Override
-			public void handle() {
-				System.out.print("Input error\n");
-			}
-		};
+		errorHandler = ErrorHandler.DEFAULT_ERROR;
 	}
 	
 	
@@ -86,14 +82,45 @@ public class ValidatedScanner {
 	}
 	
 	
+	
+	/**
+	 * Gets the next String that is in the set of valid choices
+	 * @param choices The set of valid Strings
+	 * @return The valid String input
+	 */
 	public String nextValidLine(String... choices) {
-		/* TODO use a bucket method for quicker validation
-		 * with large amount of choices. Allow user to manually
-		 * preload a "set of buckets" for multiple calls
-		 * with the same restrictions
-		 */
-				
-		String input = "";
+		ValidStrings vs = new ValidStrings(choices);
+		String input;
+		input = sn.nextLine();
+		while(!vs.contains(input)) {
+			onError();
+			input = sn.nextLine();
+		}
+		
+		return input;
+	}
+	
+	
+	/**
+	 * Gets the next String that is in the HashMap of choices
+	 * @param choices The HashMap of valid Strings, acquired with getStringMap
+	 * @return The valid String input
+	 */
+	public String nextValidLine(ValidStrings choices) {
+		String input;
+		input = sn.nextLine();
+		while(!choices.contains(input)) {
+			onError();
+			input = sn.nextLine();
+		}
+		
+		return input;
+	}
+	
+	
+	@Deprecated
+	public String nextValidLineNaive(String... choices) {
+		String input;
 		while(true) {
 			input = sn.nextLine();
 			for(String choice : choices) {
@@ -105,6 +132,13 @@ public class ValidatedScanner {
 		}
 	}
 	
+	
+	/**
+	 * Gets the next int that is in range
+	 * @param min The minimum valid value
+	 * @param max The maximum valid value
+	 * @return The valid int input
+	 */
 	public int nextInt(int min, int max) {
 		int input = sn.nextInt();
 		while(input < min || input > max) {
@@ -114,6 +148,13 @@ public class ValidatedScanner {
 		return input;
 	}
 	
+	
+	/**
+	 * Gets the next double that is in range
+	 * @param min The minimum valid value
+	 * @param max The maximum valid value
+	 * @return The valid double input
+	 */
 	public double nextDouble(double min, double max) {
 		double input = sn.nextDouble();
 		while(input < min || input > max) {
@@ -123,6 +164,13 @@ public class ValidatedScanner {
 		return input;
 	}
 	
+	
+	/**
+	 * Gets the next float that is in range
+	 * @param min The minimum valid value
+	 * @param max The maximum valid value
+	 * @return The valid float input
+	 */
 	public float nextFloat(float min, float max) {
 		float input = sn.nextFloat();
 		while(input < min || input > max) {
@@ -136,6 +184,7 @@ public class ValidatedScanner {
 	/** 
 	 *
 	 * Scanner call passing methods
+	 * See Scanner documentation for any info
 	 * 
 	 */
 	
