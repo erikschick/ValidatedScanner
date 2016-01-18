@@ -2,20 +2,22 @@ package validatedScanner;
 
 
 /**
- * Use this class similarly to an ActionListener
+ * ErrorHandler handle() method is called whenever an input
+ * error happens with ValidatedScanner
  * 
- * ErrorHandler e = new ErrorHandler() {
- * 		@Override
- * 		public void handle() {
- * 			INSERT CODE HERE
- * 		}
- * };
+ * Use this class similarly to an ActionListener
  * 
  * 
  * @author Erik Schick
  *
  */
 public abstract class ErrorHandler {
+	public final static ErrorHandler DEFAULT_ERROR = new ErrorHandler() {
+		@Override
+		public void handle() {
+			System.out.print("Input error\n");
+		}
+	};
 	
 	/**
 	 * Override this method to allow custom error behaviour
