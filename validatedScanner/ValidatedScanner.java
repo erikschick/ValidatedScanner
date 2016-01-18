@@ -1,3 +1,4 @@
+// TODO add support for custom Validator objects to be passed in to all methods
 package validatedScanner;
 
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class ValidatedScanner {
 	
 	// The current ErrorHandler set
 	private ErrorHandler errorHandler;
+	
 	
 	/**
 	 * Initialize a ValidatedScanner to wrap a Scanner
