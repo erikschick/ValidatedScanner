@@ -3,6 +3,23 @@ A wrapper for Java Scanner to support automatic validation of input.
 
 The user will be repeatedly asked for input until valid input is given.
 
+##Custom Validators
+If specific validation conditions are desired, a custom validator can be passed in.<br><br>
+Example:
+```java
+NumberValidator evenWholeNumber = new NumberValidator() {
+	@Override
+	public boolean valid(double input) {
+		return (input % 2 == 0);
+	}
+};
+
+ValidatedScanner vs = new ValidatedScanner(someScanner);
+vs.nextInt(evenWholeNumber)
+```
+
+
+
 ##Repeated requests
 If multiple input requests will be made with the same choices of valid Strings, make a new ValidStrings object with the choices and pass the ValidStrings object as an argument instead. This avoids remaking the internal validation table with each request.
 #####Benchmark results for 10000 input loops on the same input:
@@ -18,8 +35,7 @@ New error messages can be set to a String. Newlines are not automatically append
 
 ####setErrorHandler()
 An ErrorHandler can be passed to the ValidatedScanner in the same way that an ActionListener can be passed to a Swing component.
-
-<br />Example:
+<br><br>Example:
 ```java
 ValidatedScanner vs = new ValidatedScanner(someScanner);
 vs.setErrorHandler(new ErrorHandler() {
