@@ -13,10 +13,10 @@ Regular with ValidStrings: 0.143905804 seconds<br>
 ##Input errors:
 After each invalid input, an error occurs. Errors trigger the handle() method in an ErrorHandler that is stored in the ValidatedScanner.
 
-###setErrorMessage()
+####setErrorMessage()
 New error messages can be set to a String. Newlines are not automatically appended.
 
-###setErrorHandler()
+####setErrorHandler()
 An ErrorHandler can be passed to the ValidatedScanner in the same way that an ActionListener can be passed to a Swing component.
 
 <br />Example:
